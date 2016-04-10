@@ -1,3 +1,4 @@
+@accepted
 Feature: My Second Feature
 
   Scenario: My First Scenario
