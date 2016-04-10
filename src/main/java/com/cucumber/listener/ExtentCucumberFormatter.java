@@ -41,7 +41,8 @@ public class ExtentCucumberFormatter implements Reporter, Formatter {
         if ("passed".equals(result.getStatus())) {
             ExtentTestManager.getTest().log(LogStatus.PASS, testSteps.poll().getName(), "PASSED");
         } else if ("failed".equals(result.getStatus())) {
-            ExtentTestManager.getTest().log(LogStatus.FAIL, testSteps.poll().getName(), result.getErrorMessage());
+            ExtentTestManager.getTest().log(LogStatus.FAIL, testSteps.poll().getName(), result.getError());
+            //ExtentTestManager.getTest().log(LogStatus.INFO,ExtentTestManager.getTest().addScreenCapture("/Users/saikrisv/Desktop/ActivityScreen.png"));
         } else if ("skipped".equals(result.getStatus())) {
             ExtentTestManager.getTest().log(LogStatus.SKIP, testSteps.poll().getName(), "SKIPPED");
         } else if ("undefined".equals(result.getStatus())) {
@@ -77,7 +78,9 @@ public class ExtentCucumberFormatter implements Reporter, Formatter {
     }
 
     public void feature(Feature feature) {
-        parent = ExtentTestManager.startTest(feature.getName());
+        for (Tag tag : feature.getTags()) {
+            parent = ExtentTestManager.startTest(feature.getName()).assignCategory(Thread.currentThread().getName(),tag.getName());
+        }
         parentContext.put(Thread.currentThread().getId(), parent);
     }
 
@@ -92,7 +95,8 @@ public class ExtentCucumberFormatter implements Reporter, Formatter {
     public void startOfScenarioLifeCycle(Scenario scenario) {
         this.testSteps = new LinkedList<Step>();
         System.out.println(testSteps);
-        child = ExtentTestManager.startTest(scenario.getName()).assignCategory(Thread.currentThread().getName());
+            child = ExtentTestManager.startTest(scenario.getName()).assignCategory(Thread.currentThread().getName());
+
     }
 
     public void background(Background background) {
