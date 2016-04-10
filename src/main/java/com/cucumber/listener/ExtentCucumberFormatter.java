@@ -121,7 +121,7 @@ public class ExtentCucumberFormatter implements Reporter, Formatter {
     }
 
     public void eof() {
-        ExtentTestManager.endTest(parent);
+        ExtentManager.getInstance().endTest(parent);
         ExtentManager.getInstance().flush();
     }
 
