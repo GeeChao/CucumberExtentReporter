@@ -20,7 +20,6 @@ public class CucumberParallelThread {
 
 
     public void distributeTests(int deviceCount) throws Exception {
-
         PackageUtil.getClasses("output").stream().forEach(s -> {
             if (s.toString().contains("IT")) {
                 System.out.println("forEach: " + testCases.add((Class) s));
