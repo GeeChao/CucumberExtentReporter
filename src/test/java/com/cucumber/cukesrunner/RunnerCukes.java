@@ -29,7 +29,7 @@ public class RunnerCukes {
         for (File file : files) {
         Path path = Paths.get(file.getAbsoluteFile().toString());
         List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-            lines.add(12, "plugin = {\"com.cucumber.listener.ExtentCucumberFormatter:\"},");
+            lines.add(0, "package output;");
         lines.add(12, "plugin = {\"com.cucumber.listener.ExtentCucumberFormatter:\"},");
         Files.write(path, lines, StandardCharsets.UTF_8);
         FileChannel channel = new RandomAccessFile(file.getAbsoluteFile(), "rw").getChannel();
